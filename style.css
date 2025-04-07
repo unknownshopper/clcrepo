@@ -273,11 +273,38 @@ canvas {
 
 /* Add these score-based styles */
 .branch-group li {
-    padding: 0.8rem 0;
+    padding: 0.8rem 1rem;  /* Added right padding */
     border-bottom: 1px solid #eee;
     color: #34495e;
     font-size: 1.1rem;
     transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;  /* Added for positioning the color indicator */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.branch-group li::after {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.branch-group li.score-excellent::after {
+    background-color: #4CAF50;
+}
+
+.branch-group li.score-good::after {
+    background-color: #FFC107;
+}
+
+.branch-group li.score-needs-improvement::after {
+    background-color: #F44336;
+}
     cursor: pointer;
 }
 
