@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Replace the Chart.js scripts in the head section -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sucursales.html">Sucursales</a></li>
+            <li><a href="scores.html">Global</a></li>
+            <li><a href="chart.html">Gráficas</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Gráficas de Evaluación</h1>
+        <div class="chart-wrapper full-width">
+            <canvas id="branchesChart"></canvas>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h2>Sucursales</h2>
+                <canvas id="mainBranchesChart"></canvas>
+            </div>
+            
+            <div class="chart-wrapper">
+                <h2>Exprés</h2>
+                <canvas id="expresBranchesChart"></canvas>
+            </div>
+            
+            <div class="chart-wrapper">
+                <h2>Móviles</h2>
+                <canvas id="mobileBranchesChart"></canvas>
+            </div>
+        </div>
+        <!-- Add this after the existing charts-container div -->
+        <div class="chart-wrapper full-width">
+            <h2>Vista General de Sucursales</h2>
+            <canvas id="generalChart"></canvas>
+        </div>
+    </div>
+    
+    <!-- Firebase scripts -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/charts.js"></script>
+</body>
+</html>

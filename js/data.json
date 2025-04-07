@@ -1,0 +1,27 @@
+{
+    "2024": {
+        "1": {
+            "Suc1": {
+                "Atención": 85,
+                "Limpieza": 90,
+                "Calidad": 88,
+                "Rapidez": 82,
+                "Presentación": 87
+            },
+            "Suc2": {
+                "Atención": 92,
+                "Limpieza": 88,
+                "Calidad": 95,
+                "Rapidez": 89,
+                "Presentación": 91
+            },
+            "Suc3": {
+                "Atención": 78,
+                "Limpieza": 85,
+                "Calidad": 80,
+                "Rapidez": 75,
+                "Presentación": 82
+            }
+        }
+    }
+}

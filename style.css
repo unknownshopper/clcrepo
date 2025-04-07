@@ -1,0 +1,340 @@
+/* Mantener las reglas base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    font-family: 'Ubuntu', sans-serif;
+    line-height: 1.6;
+}
+
+/* Navegación */
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
+    background-color: #2c3e50;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: #3498db;
+}
+
+/* Contenedores y elementos comunes */
+.container {
+    max-width: 100%;
+    margin: 0;
+    padding: 1rem;
+}
+
+/* Estilos para tablas */
+.table-container {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1200px;
+    table-layout: fixed; /* Add fixed layout for uniform columns */
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+    width: 60px; /* Narrower width for branch columns */
+    height: 40px;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Wider parameters column */
+table th:first-child,
+table td:first-child {
+    width: 250px;
+    min-width: 250px;
+    text-align: left;
+    padding-left: 15px;
+    white-space: normal; /* Allow text wrapping in parameters column */
+}
+
+/* Style for totals and percentages rows */
+.totals td,
+.percentages td {
+    font-weight: bold;
+    background-color: #f8f9fa;
+}
+
+/* Add horizontal scroll for small screens */
+@media screen and (max-width: 1200px) {
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Estilos para gráficos */
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.chart-wrapper {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 400px;
+    position: relative;
+}
+
+.chart-wrapper h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+canvas {
+    width: 100% !important;
+    height: calc(100% - 3rem) !important;
+}
+
+/* Selector de mes */
+.month-selector {
+    background: white;
+    padding: 1rem 2rem;
+    margin: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.month-selector select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    font-size: 1rem;
+    font-family: 'Ubuntu', sans-serif;
+    border: 2px solid #34495e;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2334495e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+}
+
+.month-selector select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.month-selector span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c3e50;
+    padding: 0.5rem 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.chart-wrapper {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 400px;
+    position: relative;
+}
+
+.chart-wrapper h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+canvas {
+    width: 100% !important;
+    height: calc(100% - 3rem) !important;
+}
+
+.month-selector {
+    background: white;
+    padding: 1rem 2rem;
+    margin: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.chart-wrapper.full-width {
+    grid-column: 1 / -1;
+    height: 500px;  /* Increased from 400px */
+    max-width: 1200px;
+    margin: 0 auto 2rem;  /* Added bottom margin for spacing */
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Add specific style for the general chart at bottom */
+.chart-wrapper.full-width:last-child {
+    height: 600px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.charts-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+.chart-wrapper {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: 300px;
+    margin-bottom: 1rem;
+}
+
+/* Add these styles for the branches section */
+.branches-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
+
+.branches-list {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    min-width: 280px;
+    transition: transform 0.3s ease;
+}
+
+.branches-list:hover {
+    transform: translateY(-5px);
+}
+
+.branches-list h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+    font-size: 1.4rem;
+}
+
+.branch-group {
+    list-style: none;
+}
+
+/* Add these score-based styles */
+.branch-group li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+    color: #34495e;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.branch-group li:hover {
+    color: #3498db;
+    padding-left: 10px;
+    background-color: #f8f9fa;
+}
+
+.branch-group li:last-child {
+    border-bottom: none;
+}
+
+/* Update container styles for better spacing */
+.container h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin: 2rem 0;
+    font-size: 2.2rem;
+}
+
+.branch-group li::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.score-excellent::after {
+    background-color: #4CAF50;
+}
+
+.score-good::after {
+    background-color: #FFC107;
+}
+
+.score-needs-improvement::after {
+    background-color: #F44336;
+}
+
+/* Add color indicators to percentage cells in scores table */
+.percentages td.score-excellent {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.percentages td.score-good {
+    color: #FFC107;
+    font-weight: bold;
+}
+
+.percentages td.score-needs-improvement {
+    color: #F44336;
+    font-weight: bold;
+}
