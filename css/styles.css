@@ -1,0 +1,78 @@
+.chart-wrapper-main {
+    height: 300px;
+    max-height: 300px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+}
+
+.chart-wrapper-mainBranchesChart,
+.chart-wrapper-expresBranchesChart,
+.chart-wrapper-mobileBranchesChart {
+    height: 250px;
+    max-height: 250px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+}
+
+.chart-wrapper-general {
+    .chart-container {
+        position: relative;
+        height: 400px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+}
+
+.chart-wrapper-sucursalesBranchesChart,
+.chart-wrapper-expresBranchesChart,
+.chart-wrapper-mobileBranchesChart {
+    height: 300px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    overflow: hidden;
+}
+
+/* Eliminar todos los estilos anteriores y usar solo estos */
+.chart-wrapper-general {
+    height: 400px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+}
+
+.chart-wrapper-branchesChart {
+    height: 300px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+}
+
+.chart-wrapper-sucursalesBranchesChart,
+.chart-wrapper-expresBranchesChart,
+.chart-wrapper-mobileBranchesChart {
+    height: 250px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    overflow: hidden;
+}
+
+canvas {
+    max-height: 100%;
+}

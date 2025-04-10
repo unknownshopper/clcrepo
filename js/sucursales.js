@@ -1,52 +1,39 @@
 import { db } from './firebase-config.js';
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-async function updateBranchColors() {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    
+// Función para actualizar los dots
+function updateDots(scores) {
+    const dots = document.querySelectorAll('.status-dot');
+    dots.forEach(dot => {
+        const branchName = dot.getAttribute('data-branch');
+        const score = scores[branchName];
+        
+        if (score >= 95) {
+            dot.style.backgroundColor = '#4CAF50';  // Verde
+        } else if (score >= 90) {
+            dot.style.backgroundColor = '#FFC107';  // Amarillo
+        } else {
+            dot.style.backgroundColor = '#F44336';  // Rojo
+        }
+    });
+}
+
+// Evento principal
+document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const docRef = doc(db, 'evaluaciones', `${year}_${month}`);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-            const data = docSnap.data();
-            const percentages = data.porcentajes;
-            const branchElements = document.querySelectorAll('.branch-group li');
+        const evaluacionesRef = collection(db, 'evaluaciones');
+        const q = query(evaluacionesRef, orderBy('fecha', 'desc'), limit(1));
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+            const docData = querySnapshot.docs[0].data();
+            console.log('Datos cargados:', docData);
             
-            branchElements.forEach((branchElement) => {
-                const branchName = branchElement.textContent.trim();
-                const index = getBranchIndex(branchName);
-                if (index !== -1) {
-                    const percentage = parseInt(percentages[index]);
-                    
-                    // Remove existing classes
-                    branchElement.classList.remove('score-excellent', 'score-good', 'score-needs-improvement');
-                    
-                    // Add appropriate class based on percentage
-                    if (percentage >= 95) {
-                        branchElement.classList.add('score-excellent');
-                    } else if (percentage >= 90) {
-                        branchElement.classList.add('score-good');
-                    } else {
-                        branchElement.classList.add('score-needs-improvement');
-                    }
-                }
-            });
+            if (docData.porcentajes) {
+                updateDots(docData.porcentajes);
+            }
         }
     } catch (error) {
-        console.error("Error loading branch scores:", error);
+        console.error("Error al cargar datos:", error);
     }
-}
-
-function getBranchIndex(branchName) {
-    const branchOrder = [
-        'Altabrisa', 'Américas', 'Ángeles', 'Centro', 'Cristal', 
-        'Deportiva', 'Galerías', 'Guayabal', 'Móvil Deportiva', 
-        'Móvil La Venta', 'Olmeca', 'Pista', 'USUMA', 'UVM', 
-        'Walmart Carrizal', 'Walmart Deportiva', 'Walmart Universidad'
-    ];
-    return branchOrder.indexOf(branchName);
-}
-
-document.addEventListener('DOMContentLoaded', updateBranchColors);
+});
