@@ -22,28 +22,28 @@
         <h2>Evaluación de Atención y Esfuerzo de venta</h2>
         
         <div class="scores-summary">
-            <h3>Resumen de Evaluaciones</h3>
+            <h3>Resumen de Evaluaciones <br></h3>
             <div class="score-cards">
                 <div class="score-card high">
                     <h4>Mayor Puntaje</h4>
-                    <div class="score-content">
-                        <!-- Contenido del puntaje más alto -->
+                    <div id="mejor-puntaje" class="score-content">
+                        Cargando...
                     </div>
                 </div>
                 
                 <div class="score-card low">
                     <h4>Menor Puntaje</h4>
-                    <div class="score-content">
-                        <!-- Contenido del puntaje más bajo -->
+                    <div id="peor-puntaje" class="score-content">
+                        Cargando...
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Agregar antes de cerrar </body> -->
 <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
 <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 <script type="module" src="js/firebase-config.js"></script>
-<script type="module" src="js/scores.js"></script>
+<script type="module" src="js/index.js"></script> <!-- Cambiado de scores.js a index.js -->
+
 </body>
 </html>

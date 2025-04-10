@@ -272,13 +272,37 @@ canvas {
 
 /* Add these score-based styles */
 .branch-group li {
-    padding: 0.8rem 0;
+    position: relative;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid #eee;
     color: #34495e;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
 }
+
+.score-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+/* Colores para los dots */
+.score-dot-excellent {
+    background-color: #4CAF50;
+}
+
+.score-dot-good {
+    background-color: #FFC107;
+}
+
+.score-dot-needs-improvement {
+    background-color: #F44336;
+}
+
 
 .branch-group li:hover {
     color: #3498db;
@@ -336,4 +360,54 @@ canvas {
 .percentages td.score-needs-improvement {
     color: #F44336;
     font-weight: bold;
+}
+
+.score-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.branch-group li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+
+.scores-summary {
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.score-cards {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.score-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 200px;
+    text-align: center;
+}
+
+.score-card.high {
+    border-top: 4px solid #4CAF50;
+}
+
+.score-card.low {
+    border-top: 4px solid #F44336;
+}
+
+.score-content {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    font-weight: 500;
 }

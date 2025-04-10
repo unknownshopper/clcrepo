@@ -1,25 +1,6 @@
 import { db } from './firebase-config.js';
 import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Función para actualizar los dots
-function updateScoreDots(scores) {
-    const allBranchItems = document.querySelectorAll('.branch-group li .score-dot');
-    
-    allBranchItems.forEach(dot => {
-        const branchName = dot.parentElement.textContent;
-        const score = scores[branchName];
-        
-        if (score >= 95) {
-            dot.classList.add('score-dot-excellent');
-        } else if (score >= 90) {
-            dot.classList.add('score-dot-good');
-        } else {
-            dot.classList.add('score-dot-needs-improvement');
-        }
-    });
-}
-
-// Evento principal
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const evaluacionesRef = collection(db, 'evaluaciones');
@@ -28,11 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         if (!querySnapshot.empty) {
             const docData = querySnapshot.docs[0].data();
-            console.log('Datos cargados:', docData);
-            
-            // Convertir totales a porcentajes
             const totales = docData.totales || [];
-            const scores = {};
             
             const ordenCorrecto = [
                 'Altabrisa', 'Americas', 'Angeles', 'Centro', 'Cristal', 'Deportiva', 
@@ -41,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 'Walmart Universidad'
             ];
 
-            // Convertir a porcentaje (28 puntos = 100%)
+            const scores = {};
             const convertToPercentage = (value) => Math.round((value / 28) * 100);
 
             ordenCorrecto.forEach((sucursal, index) => {
@@ -50,7 +27,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
 
-            updateScoreDots(scores);
+            // Encontrar mejor y peor puntaje
+            const scoresArray = Object.entries(scores);
+            const mejorPuntaje = scoresArray.reduce((max, current) => 
+                current[1] > max[1] ? current : max
+            );
+            const peorPuntaje = scoresArray.reduce((min, current) => 
+                current[1] < min[1] ? current : min
+            );
+
+            // Actualizar el DOM
+            document.getElementById('mejor-puntaje').textContent = 
+                `${mejorPuntaje[0]}: ${mejorPuntaje[1]}%`;
+            document.getElementById('peor-puntaje').textContent = 
+                `${peorPuntaje[0]}: ${peorPuntaje[1]}%`;
         }
     } catch (error) {
         console.error("Error al cargar datos:", error);
