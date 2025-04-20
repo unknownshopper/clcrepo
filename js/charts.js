@@ -260,9 +260,8 @@ function createCategoryChart(canvasId, branches, scores) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            indexAxis: 'y',  // Hace que las barras sean horizontales
             scales: {
-                x: {
+                y: {
                     beginAtZero: true,
                     max: 100
                 }
