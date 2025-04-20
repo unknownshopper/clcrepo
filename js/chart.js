@@ -1,39 +1,6 @@
 import { db } from './firebase-config.js';
 import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const getCurrentMonthData = (fechas) => {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-    
-    return fechas.find(f => {
-        const fecha = new Date(f.timestamp.seconds * 1000);
-        return fecha.getMonth() === currentMonth && 
-               fecha.getFullYear() === currentYear;
-    });
-};
-
-// Función para actualizar los dots
-function updateScoreDots(scores) {
-    const allBranchItems = document.querySelectorAll('.branch-group li .score-dot');
-    
-    allBranchItems.forEach(dot => {
-        const branchName = dot.parentElement.textContent;
-        const score = scores[branchName];
-        
-        // Limpiar clases existentes
-        dot.classList.remove('score-dot-excellent', 'score-dot-good', 'score-dot-needs-improvement');
-        
-        if (score >= 95) {
-            dot.classList.add('score-dot-excellent');
-        } else if (score >= 90) {
-            dot.classList.add('score-dot-good');
-        } else {
-            dot.classList.add('score-dot-needs-improvement');
-        }
-    });
-}
-
 const mesesFuturos = [
     { month: 0, year: 2025 }, // Enero 2025
     { month: 1, year: 2025 }, // Febrero 2025
@@ -46,8 +13,20 @@ const mesesFuturos = [
     { month: 8, year: 2025 }, // Septiembre 2025
     { month: 9, year: 2025 }, // Octubre 2025
     { month: 10, year: 2025 }, // Noviembre 2025
-    { month: 11, year: 2025 }, // Diciembre 2025
+    { month: 11, year: 2025 }  // Diciembre 2025
 ];
+
+const getCurrentMonthData = (fechas) => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+    
+    return fechas.find(f => {
+        const fecha = new Date(f.timestamp.seconds * 1000);
+        return fecha.getMonth() === currentMonth && 
+               fecha.getFullYear() === currentYear;
+    });
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -68,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
 
-        // Obtener datos de Firebase y actualizar el Map
+        // Obtener datos de Firebase
         const evaluacionesRef = collection(db, 'evaluaciones');
         const q = query(evaluacionesRef, orderBy('fecha', 'desc'));
         const querySnapshot = await getDocs(q);
@@ -99,36 +78,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             monthYearSelect.appendChild(option);
         });
 
-        // Función para procesar y mostrar datos
-        const processAndDisplayData = (data) => {
-            if (!data) return;
-            
-            const totales = data.totales || [];
-            const scores = {};
-            
-            const ordenCorrecto = [
-                'Altabrisa', 'Americas', 'Angeles', 'Centro', 'Cristal', 'Deportiva', 
-                'Galerias', 'Guayabal', 'Movil Deportiva', 'Movil La Venta', 'Olmeca', 
-                'Pista', 'USUMA', 'UVM', 'Walmart Carrizal', 'Walmart Deportiva', 
-                'Walmart Universidad'
-            ];
-
-            const convertToPercentage = (value) => Math.round((value / 28) * 100);
-
-            ordenCorrecto.forEach((sucursal, index) => {
-                if (totales[index] !== undefined) {
-                    scores[sucursal] = convertToPercentage(parseInt(totales[index]));
-                }
-            });
-
-            updateScoreDots(scores);
-        };
-
         // Event listener para el cambio de mes
-        monthYearSelect.addEventListener('change', (e) => {
+        monthYearSelect.addEventListener('change', async (e) => {
             const selectedData = fechas.find(f => f.timestamp.seconds.toString() === e.target.value);
             if (selectedData) {
-                processAndDisplayData(selectedData.data);
+                await updateCharts(selectedData.data);
             }
         });
 
@@ -137,13 +91,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             const currentMonthData = getCurrentMonthData(fechas);
             if (currentMonthData) {
                 monthYearSelect.value = currentMonthData.timestamp.seconds;
-                processAndDisplayData(currentMonthData.data);
+                await updateCharts(currentMonthData.data);
             } else {
                 monthYearSelect.value = fechas[0].timestamp.seconds;
-                processAndDisplayData(fechas[0].data);
+                await updateCharts(fechas[0].data);
             }
         }
+
     } catch (error) {
         console.error("Error al cargar datos:", error);
     }
 });
+
+// Función para actualizar las gráficas
+async function updateCharts(data) {
+    if (!data) {
+        console.log('No hay datos para mostrar');
+        return;
+    }
+    // Aquí va tu código existente para actualizar las gráficas
+    // ...
+}

@@ -411,3 +411,41 @@ canvas {
     margin-top: 1rem;
     font-weight: 500;
 }
+
+.score-content.excellent {
+    color: #4CAF50;
+}
+
+.score-content.good {
+    color: #FFC107;
+}
+
+.score-content.needs-improvement {
+    color: #F44336;
+}
+
+.date-selector {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.date-selector select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    font-size: 1rem;
+    font-family: 'Ubuntu', sans-serif;
+    border: 2px solid #34495e;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2334495e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+}
+
+.date-selector select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
