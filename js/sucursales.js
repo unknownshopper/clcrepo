@@ -23,7 +23,7 @@ function updateScoreDots(scores) {
         
         // Limpiar clases existentes
         dot.classList.remove('score-dot-excellent', 'score-dot-good', 'score-dot-needs-improvement');
-        
+           
         // Normalizar el texto removiendo todos los acentos
         let normalizedName = branchText
             .normalize("NFD")
