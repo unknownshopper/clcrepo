@@ -15,14 +15,29 @@ const getCurrentMonthData = (fechas) => {
 
 // Función para actualizar los dots
 function updateScoreDots(scores) {
-    const allBranchItems = document.querySelectorAll('.branch-group li .score-dot');
+    const allBranchItems = document.querySelectorAll('.branch-group li');
     
-    allBranchItems.forEach(dot => {
-        const branchName = dot.parentElement.textContent;
-        const score = scores[branchName];
+    allBranchItems.forEach(item => {
+        const dot = item.querySelector('.score-dot');
+        const branchText = item.textContent.trim();
         
         // Limpiar clases existentes
         dot.classList.remove('score-dot-excellent', 'score-dot-good', 'score-dot-needs-improvement');
+        
+        // Normalizar el texto removiendo todos los acentos
+        let normalizedName = branchText
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+        
+        // Buscar el score correspondiente
+        let score;
+        if (normalizedName.includes('Movil')) {
+            score = scores['Movil' + normalizedName.split('Movil')[1]];
+        } else if (normalizedName.includes('Walmart')) {
+            score = scores['Walmart' + normalizedName.split('Walmart')[1]];
+        } else {
+            score = scores[normalizedName];
+        }
         
         if (score >= 95) {
             dot.classList.add('score-dot-excellent');
@@ -31,6 +46,9 @@ function updateScoreDots(scores) {
         } else {
             dot.classList.add('score-dot-needs-improvement');
         }
+        
+        // Para debug
+        console.log(`Original: ${branchText}, Normalizado: ${normalizedName}, Score: ${score}%`);
     });
 }
 
@@ -104,23 +122,36 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!data) return;
             
             const totales = data.totales || [];
-            const scores = {};
+            const scores = {
+                'Altabrisa': 0,
+                'Americas': 0,
+                'Angeles': 0,
+                'Centro': 0,
+                'Cristal': 0,
+                'Deportiva': 0,
+                'Galerias': 0,
+                'Guayabal': 0,
+                'Movil Deportiva': 0,
+                'Movil La Venta': 0,
+                'Olmeca': 0,
+                'Pista': 0,
+                'USUMA': 0,
+                'UVM': 0,
+                'Walmart Carrizal': 0,
+                'Walmart Deportiva': 0,
+                'Walmart Universidad': 0
+            };
             
-            const ordenCorrecto = [
-                'Altabrisa', 'Americas', 'Angeles', 'Centro', 'Cristal', 'Deportiva', 
-                'Galerias', 'Guayabal', 'Movil Deportiva', 'Movil La Venta', 'Olmeca', 
-                'Pista', 'USUMA', 'UVM', 'Walmart Carrizal', 'Walmart Deportiva', 
-                'Walmart Universidad'
-            ];
-
+            const ordenCorrecto = Object.keys(scores);
+        
             const convertToPercentage = (value) => Math.round((value / 28) * 100);
-
+        
             ordenCorrecto.forEach((sucursal, index) => {
                 if (totales[index] !== undefined) {
                     scores[sucursal] = convertToPercentage(parseInt(totales[index]));
                 }
             });
-
+        
             updateScoreDots(scores);
         };
 

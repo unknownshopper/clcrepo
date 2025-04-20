@@ -52,6 +52,8 @@ async function updateCharts(data) {
     ];
 
     const totales = data.totales || [];
+    
+    // Mapear los valores en el orden correcto de las sucursales
     const ordenCorrecto = [
         'Altabrisa', 'Americas', 'Angeles', 'Centro', 'Cristal', 'Deportiva', 
         'Galerias', 'Guayabal', 'Movil Deportiva', 'Movil La Venta', 'Olmeca', 
@@ -59,11 +61,14 @@ async function updateCharts(data) {
         'Walmart Universidad'
     ];
 
-    const convertToPercentage = (value) => Math.round((value / 28) * 100);
-
+    // Asegurarse de que los valores se asignen correctamente
     ordenCorrecto.forEach((sucursal, index) => {
-        if (totales[index] !== undefined) {
-            scores[sucursal] = convertToPercentage(parseInt(totales[index]));
+        const valor = totales[index];
+        if (valor !== undefined) {
+            // Convertir a número y calcular porcentaje
+            const numericValue = parseInt(valor);
+            scores[sucursal] = Math.round((numericValue / 28) * 100);
+            console.log(`${sucursal}: ${scores[sucursal]}%`); // Para debug
         }
     });
 
